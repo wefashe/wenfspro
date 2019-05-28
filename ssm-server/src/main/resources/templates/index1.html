@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8"/>
+    <title>权限管理系统 - 首页</title>
+    <link rel="shortcut icon" href="../static/img/favicon.ico"/>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html, body, #container {
+            height: 100%;
+        }
+
+        #container {
+            /*弹性盒模型,声明一下布局是flex布局*/
+            display: flex;
+            /*弹性盒模型默认水平分布 column纵向分布*/
+            flex-direction: column;
+        }
+
+        #header {
+            height: 60px;
+            line-height: 60px;
+            border-bottom: 1px solid black;
+            display: flex;
+
+        }
+
+        #logo {
+            width: 30%;
+            text-align: center;
+        }
+
+        #user {
+            /*flex是flex-grow,flex-shrink,flex-basis (注意写的顺序)缩写形式*/
+            /*条件:父元素大于子元素之和 flex-grow获取父元素剩余空间,让所有子元素之和等于父元素*/
+            /*条件:父元素小于子元素之和 flex-shrink减少子元素空间,让所有子元素之和等于父元素*/
+            /*flex-basis 设置元素的宽度,width 的值会被flex-basis覆盖掉*/
+            flex: 1;
+            text-align: right;
+        }
+
+        #center {
+            flex: 1;
+            display: flex;
+        }
+
+        #menu {
+            width: 200px;
+            border-right: 1px solid black;
+        }
+
+        #content {
+            flex: 1;
+        }
+
+        #footer {
+            height: 25px;
+            line-height: 25px;
+            border-top: 1px solid black;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="container">
+
+    <div id="header">
+        <div id="logo">
+            <h1>权限管理系统</h1>
+        </div>
+        <div id="user">
+            <span shiro:user>欢迎您：<span shiro:principal property="nickName"></span></span>
+            <a th:href="@{/logout}">退出</a>
+        </div>
+    </div>
+
+    <div id="center">
+
+        <div id="menu">
+            <ul th:each="menu,menuStatus:${menus}">
+                <li><a th:href="${menu.getPermUrl()}" th:text="${menu.getPermName()}" target="ssm-iframe"></a></li>
+            </ul>
+        </div>
+
+        <div id="content">
+            <iframe class="iframe" name="ssm-iframe" width="100%" height="100%" th:src="@{/swagger-ui.html}"
+                    frameborder="0"
+                    seamless></iframe>
+        </div>
+
+    </div>
+
+    <div id="footer">
+        版权 ©wenfs
+    </div>
+
+</div>
+
+
+<div>
+
+</div>
+
+<div>
+
+</div>
+
+
+</body>
+</html>

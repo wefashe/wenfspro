@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>权限管理系统 - 首页</title>
+  <link rel="shortcut icon" href="../static/img/favicon.ico" />
+  <link rel="stylesheet" href="../static/lib/layui/css/layui.css" />
+  <link rel="stylesheet" href="../static/css/index.css" />
+  <link rel="stylesheet" type="text/css" href="http:////at.alicdn.com/t/font_544086_8zuval1pl60w9udi.css">
+</head>
+
+<body class="layui-layout-body">
+  <div class="layui-layout layui-layout-admin">
+    <!--顶部区域开始-->
+    <div class="layui-header">
+      <div class="layui-logo">layui 后台布局</div>
+      <!-- 头部区域（可配合layui已有的水平导航） -->
+      <ul class="layui-nav layui-layout-left">
+        <li class="layui-nav-item left-open">
+          <i title="展开左侧栏" class="layui-icon layui-icon-shrink-right"></i>
+        </li>
+
+        <li class="layui-nav-item"><a href="">控制台</a></li>
+      </ul>
+      <ul class="layui-nav layui-layout-right">
+        <li class="layui-nav-item">
+          <a href="javascript:;">
+            <img src="http://t.cn/RCzsdCq" class="layui-nav-img" />
+            贤心
+          </a>
+          <dl class="layui-nav-child">
+            <dd><a href="">基本资料</a></dd>
+            <dd><a href="">安全设置</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item"><a href="">退了</a></li>
+      </ul>
+    </div>
+    <!--顶部区域结束-->
+
+    <!--左侧区域开始-->
+    <div class="layui-side layui-bg-black">
+      <div class="layui-side-scroll"></div>
+    </div>
+    <!--左侧区域结束-->
+
+    <!--右侧区域开始-->
+    <div class="layui-body">
+
+      <div class="layui-tab" lay-unauto="" lay-allowclose="true" lay-filter="tabs">
+        <!-- <div> -->
+        <!-- <div class="layui-icon layadmin-tabs-control layui-icon-prev" layadmin-event="leftTabs"></div> -->
+        <!--标签标题区-->
+        <ul class="layui-tab-title">
+          <li lay-id="home/console.html" lay-attr="home/console.html" class="layui-this">
+            <i class="layui-icon layui-icon-home"></i><i class="layui-icon layui-unselect layui-tab-close"></i>
+          </li>
+        </ul>
+        <!-- <div class="layui-icon layadmin-tabs-control layui-icon-next" layadmin-event="rightTabs"></div> -->
+        <!-- </div> -->
+        <!--标签内容区-->
+        <div class="layui-tab-content">
+          <div class="layui-tab-item layui-show">
+            <iframe frameborder="0" src="https://www.baidu.com" scrolling="yes" style="width:100%;height:99%;"></iframe>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!--右侧区域结束-->
+
+    <!--底部区域开始-->
+    <!-- <div class="layui-footer">
+    © layui.com - 底部固定区域
+  </div> -->
+    <!--底部区域结束-->
+  </div>
+
+  <script type="text/javascript" src="../static/lib/layui/layui.js"></script>
+  <script type="text/javascript" src="../static/js/index.js"></script>
+</body>
+
+</html>

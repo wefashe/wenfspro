@@ -1,0 +1,65 @@
+{
+    "resultCode": 0,
+    "data": [
+        {
+            "permId": "1",
+            "permName": "角色管理",
+            "permUrl": "role/",
+            "permIcon": "icon-github",
+            "permStatus": "1",
+            "parId": "",
+            "sequence": 0,
+            "permType": 1,
+            "operator": "admin",
+            "createTime": "1522822971651",
+            "updateTime": "1522822971651",
+            "updateIp": "127.0.0.1",
+            "remark": null
+        },
+        {
+            "permId": "2",
+            "permName": "用户管理",
+            "permUrl": "user/",
+            "permIcon": "layui-icon-user",
+            "permStatus": "1",
+            "parId": "5c883cf64e2aaa37821c40015ecc9899",
+            "sequence": 0,
+            "permType": 1,
+            "operator": "admin",
+            "createTime": "1522823064197",
+            "updateTime": "1522823064197",
+            "updateIp": "127.0.0.1",
+            "remark": null
+        },
+        {
+            "permId": "3",
+            "permName": "部门管理",
+            "permUrl": "dept/",
+            "permIcon": "icon-save",
+            "permStatus": "1",
+            "parId": "",
+            "sequence": 0,
+            "permType": 1,
+            "operator": "admin",
+            "createTime": "1522823102421",
+            "updateTime": "1522823102421",
+            "updateIp": "127.0.0.1",
+            "remark": null
+        },
+        {
+            "permId": "4",
+            "permName": "权限管理",
+            "permUrl": "perm/",
+            "permIcon": "layui-icon-vercode",
+            "permStatus": "1",
+            "parId": "",
+            "sequence": 0,
+            "permType": 1,
+            "operator": "admin",
+            "createTime": "1522822892938",
+            "updateTime": "1522822892938",
+            "updateIp": "127.0.0.1",
+            "remark": null
+        }
+    ]
+}

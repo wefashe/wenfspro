@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html class="loginHtml">
+
+<head>
+    <meta charset="utf-8">
+    <title>编辑权限</title>
+    <link rel="stylesheet" href="../../../static/lib/layui/css/layui.css" />
+</head>
+
+<body>
+
+    <form class="layui-form">
+        <input type="hidden" name="permId" id="permId">
+        <div class="layui-form-item">
+            <label class="layui-form-label">权限名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="permName" id="permName" lay-verify="required" autocomplete="off"
+                    placeholder="请输入权限名称" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">地址</label>
+            <div class="layui-input-block">
+                <input type="text" name="permUrl" id="permUrl" lay-verify="required" autocomplete="off"
+                    placeholder="请输入地址" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">图标</label>
+            <div class="layui-input-block">
+                <input type="text" name="permIcon" id="permIcon" autocomplete="off" placeholder="请输入图标"
+                    class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="permStatus" id="permStatus" lay-verify="required" title="启用" value="1">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">描述</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入描述" name="remark" id="remark" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="permSub">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+
+    <script type="text/javascript" src="../../../static/lib/layui/layui.js"></script>
+    <script>
+        layui.use(['form', 'jquery'], function () {
+            var form = layui.form,
+                layer = parent.layer === undefined ? layui.layer : top.layer,
+                $ = layui.jquery;
+
+            form.on("submit(permSub)", function (data) {
+                var index = layer.msg('数据提交中，请稍候', { icon: 16, time: false, shade: 0.8 });
+                $.post("/perm/editPerm", getValues(), function (res) {
+                    setTimeout(function () {
+                        layer.close(index);
+                        var permId = $('#permId').val();
+                        if (permId) {
+                            layer.msg("权限修改成功！");
+                        } else {
+                            layer.msg("权限添加成功！");
+                        }
+                        layer.closeAll("iframe");
+                        parent.location.reload();
+                    }, 500);
+                })
+                return false;
+            });
+        });
+        function getValues() {
+            var perm = {};
+            perm.permId = getValue('permId');
+            perm.permName = getValue('permName');
+            perm.permUrl = getValue('permUrl');
+            perm.permIcon = getValue('permIcon');
+            perm.permStatus = getValue('permStatus');
+            perm.remark = getValue('remark');
+            return perm;
+        };
+        function setValues(perm) {
+            setValue('permId', perm.permId);
+            setValue('permName', perm.permName);
+            setValue('permUrl', perm.permUrl);
+            setValue('permIcon', perm.permIcon);
+            setValue('permStatus', perm.permStatus);
+            setValue('remark', perm.remark);
+        };
+
+        function setValue(id, value) {
+            document.getElementById(id).value = value;
+        };
+        function getValue(id) {
+            return document.getElementById(id).value;
+        };
+
+    </script>
+</body>
+
+</html>

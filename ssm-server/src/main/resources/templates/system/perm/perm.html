@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+<head>
+    <title>权限管理系统 - 登录</title>
+    <link rel="stylesheet" href="../../../static/lib/layui/css/layui.css" />
+</head>
+
+<body>
+    <div class="layui-btn-group" id="permTableBar">
+        <button class="layui-btn" data-type="add">新增</button>
+        <button class="layui-btn" data-type="edit">修改</button>
+        <button class="layui-btn" data-type="del">删除</button>
+    </div>
+    <table id="permTable" class="layui-table" lay-filter="permTable"></table>
+
+    <script type="text/javascript" src="../../../static/lib/layui/layui.js"></script>
+    <script type="text/javascript" src="../../../static/js/perm.js"></script>
+</body>
+
+</html>

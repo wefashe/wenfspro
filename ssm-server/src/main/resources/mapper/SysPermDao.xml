@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.ISysPermDao">
+
+    <!-- 通用查询映射结果 -->
+    <select id="getPerm" resultType="com.example.demo.entity.SysPerm">
+        select p.* from sys_perm p,sys_role_perm rp,sys_role r,sys_user_role ur,sys_user u
+        where p.perm_id = rp.perm_id
+        and rp.role_id = r.role_id
+        and r.role_id = ur.role_id
+        and ur.user_id = u.user_id
+        <if test="userId!=null">
+            and u.user_id=#{userId}
+        </if>
+        <if test="permName!=null">
+            and p.perm_name=#{permName}
+        </if>
+        <if test="permType!=null">
+            and p.perm_type=#{permType}
+        </if>
+    </select>
+
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.SysPerm">
+        <id column="perm_id" property="permId" />
+        <result column="perm_name" property="permName" />
+        <result column="perm_url" property="permUrl" />
+        <result column="perm_icon" property="permIcon" />
+        <result column="perm_status" property="permStatus" />
+        <result column="par_id" property="parId" />
+        <result column="sequence" property="sequence" />
+        <result column="perm_type" property="permType" />
+        <result column="operator" property="operator" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_ip" property="updateIp" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+
+</mapper>

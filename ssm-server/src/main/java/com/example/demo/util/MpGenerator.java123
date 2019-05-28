@@ -1,0 +1,161 @@
+package com.example.demo.util;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.core.config.GlobalConfig;
+import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
+import com.baomidou.mybatisplus.core.metadata.TableInfo;
+import com.baomidou.mybatisplus.generator.AutoGenerator;
+import com.baomidou.mybatisplus.generator.InjectionConfig;
+import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+
+/**
+ *
+ */
+public class MpGenerator {
+  public static void main(String[] args) {
+    generateByTables("com.example.demo", "sys_log");
+  }
+
+  private static void generateByTables(String packageName, String... tableNames) {
+    String url = "jdbc:log4jdbc:mysql://127.0.0.1:3306/demo?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT%2B8";
+    String driver = "net.sf.log4jdbc.DriverSpy";
+    String userName = "root";
+    String passWord = "root";
+
+
+    String projectPath =System.getProperty("user.dir");
+    String javaPath = projectPath+"/src/main/java";
+    String resPath =  projectPath+"/src/main/resources";
+
+    // 代码生成器
+    AutoGenerator mpg = new AutoGenerator();
+
+    GlobalConfig gc = setGlobalConfig(javaPath);
+
+    mpg.setGlobalConfig(gc);
+
+    DataSourceConfig dsc = setDataSourceConfig(url,driver,userName,passWord);
+
+    mpg.setDataSource(dsc);
+
+    PackageConfig pc = setPackageConfig(packageName);
+
+    mpg.setPackageInfo(pc);
+
+    StrategyConfig strategy = setStrategyConfig(tableNames);
+
+    mpg.setStrategy(strategy);
+    // 注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值
+    InjectionConfig cfg = new InjectionConfig() {
+      @Override
+      public void initMap() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("abc", this.getConfig().getGlobalConfig().getAuthor() + "-mp");
+        this.setMap(map);
+      }
+    };
+    List<FileOutConfig> aa = Collections.<FileOutConfig> singletonList(new FileOutConfig("/templates/mapper.xml.vm") {
+      // 自定义输出文件目录
+      @Override
+      public String outputFile(TableInfo tableInfo) {
+        return resPath+"/mapper/" + tableInfo.getXmlName() + ".xml";
+      }
+    });
+    cfg.setFileOutConfigList(aa);
+
+    mpg.setCfg(cfg).setTemplate(
+      // 关闭默认 xml 生成，调整生成 至 根目录
+      new TemplateConfig().setXml(null)
+    // 自定义模板配置，模板可以参考源码 /mybatis-plus/src/main/resources/template 使用 copy
+    // 至您项目 src/main/resources/template 目录下，模板名称也可自定义如下配置：
+    // .setController("...");
+    // .setEntity("...");
+    // .setMapper("...");
+    // .setXml("...");
+    // .setService("...");
+    // .setServiceImpl("...");
+    );
+
+    mpg.execute();
+
+  }
+
+  private static GlobalConfig setGlobalConfig(String javaPath) {
+    // 全局配置
+    GlobalConfig gc = new GlobalConfig();
+    gc.setOutputDir(javaPath);
+    gc.setAuthor("wenfs");
+    gc.setOpen(false);
+    gc.setMapperName("I%sDao");
+    gc.setXmlName("%sDao");
+    gc.setBaseResultMap(true);
+    gc.setServiceName("I%sService");
+    gc.setServiceImplName("%sServiceImpl");
+    gc.setControllerName("%sController");
+    return gc;
+  }
+
+  private static DataSourceConfig setDataSourceConfig(String url,String driver,String userName,String passWord) {
+    // 数据源配置
+    DataSourceConfig dsc = new DataSourceConfig();
+    dsc.setDbType(DbType.MYSQL);
+    dsc.setUrl(url);
+    dsc.setDriverName(driver);
+    dsc.setUsername(userName);
+    dsc.setPassword(passWord);
+    return dsc;
+  }
+
+  private static PackageConfig setPackageConfig(String packageName) {
+    // 包配置
+    PackageConfig pc = new PackageConfig();
+    //    pc.setModuleName(scanner("模块名"));
+    pc.setParent(packageName);
+    pc.setEntity("entity");
+    pc.setMapper("dao");
+    pc.setService("service");
+    pc.setServiceImpl("service.impl");
+    pc.setController("controller");
+    return pc;
+  }
+
+  private static StrategyConfig setStrategyConfig(String... tableNames) {
+    // 策略配置
+    StrategyConfig strategy = new StrategyConfig();
+    strategy.setNaming(NamingStrategy.underline_to_camel);
+    strategy.setColumnNaming(NamingStrategy.underline_to_camel);
+    strategy.setEntityLombokModel(true);
+    strategy.setEntityLombokModel(true);
+    strategy.setInclude(tableNames);
+    return strategy;
+  }
+
+  /**
+   * <p>
+   * 读取控制台内容
+   * </p>
+   */
+  public static String scanner(String tip) {
+    Scanner scanner = new Scanner(System.in);
+    StringBuilder help = new StringBuilder();
+    help.append("请输入" + tip + "：");
+    System.out.println(help.toString());
+    if (scanner.hasNext()) {
+      String ipt = scanner.next();
+      if (StringUtils.isNotEmpty(ipt)) {
+        return ipt;
+      }
+    }
+    throw new MybatisPlusException("请输入正确的" + tip + "！");
+  }
+
+}

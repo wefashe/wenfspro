@@ -1,0 +1,62 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  h2:
+    console:
+      path: /h2
+      enabled: true
+      settings:
+        web-allow-others: true
+  datasource:
+    schema: classpath:script/DDL.sql
+    data: classpath:script/DML.sql
+    sql-script-encoding: UTF-8
+    initialization-mode: embedded
+    druid:
+      url: jdbc:log4jdbc:h2:~/db/ssm-example;auto_server=true;
+      driver-class-name: net.sf.log4jdbc.DriverSpy
+      username: ssm
+      password: 1
+      test-while-idle: false
+  thymeleaf:
+    cache: false
+  mvc:
+    static-path-pattern: /static/**
+    #出现错误时, 直接抛出异常 404返回json,而不是出现错误页面
+    throw-exception-if-no-handler-found: true
+  resources:
+    #关闭工程中的资源文件建立映射 404返回json,而不是出现错误页面
+    add-mappings: false
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.demo.entity
+  type-enums-package: com.example.demo.util.enums
+  global-config:
+    db-config:
+      id-type: uuid
+    banner: false
+
+
+
+
+kaptcha:
+  height: 50
+  width: 200
+  content:
+    length: 4
+    source: abcdefghjklmnopqrstuvwxyz23456789
+    space: 2
+  font:
+    color: black
+    name: Arial
+    size: 40
+  background-color:
+    from: lightGray
+    to: white
+  border:
+    enabled: false
+    color: black
+    thickness: 1
